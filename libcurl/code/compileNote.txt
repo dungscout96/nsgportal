@@ -1,0 +1,10 @@
+If you need to have curl first in your PATH run:
+  echo 'export PATH="/usr/local/opt/curl/bin:$PATH"' >> ~/.bash_profile
+
+For compilers to find curl you may need to set:
+  export LDFLAGS="-L/usr/local/opt/curl/lib"
+  export CPPFLAGS="-I/usr/local/opt/curl/include"
+
+
+When compiling program, need to provide flag for lib curl header: 
+gcc myfile.c -lcurl -o myprogram
