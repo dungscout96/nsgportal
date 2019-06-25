@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <curl/curl.h>
+#include <mex.h>
 #include <curl/curlver.h>
 #include <curl/easy.h>
 
@@ -29,7 +30,7 @@ static size_t WriteMemoryCallback(void *ptr, size_t size, size_t nmemb, void *da
 	return realsize;
 }
 
-int main() {
+void libcurlMex() {
 	curl_global_init(CURL_GLOBAL_ALL);
 	CURL *myHandle = curl_easy_init();
 	CURLcode result; // We’ll store the result of CURL’s webpage retrieval
@@ -50,9 +51,7 @@ int main() {
 	curl_easy_cleanup( myHandle );
 
 	FILE * fp;
-	fp = fopen( "example.html","w");
-	if( !fp )
-		return 1;
+	fp = fopen( "example.xml","w");
 	fprintf(fp, output.buffer );
 	fclose( fp );
 
@@ -64,7 +63,12 @@ int main() {
 	}
 
 	printf("LibCurl rules!\n");
-	
-	return 0;
+}
+
+void mexFunction( int nlhs, mxArray *plhs[],
+                  int nrhs, const mxArray *prhs[]) {
+	libcurlMex();
+    
+    
 }
 
